@@ -41,6 +41,7 @@ The following code customize the toolbar.
 ### Custom configuration for Quill
 
 A list of configuration options you can find in the [Quill toolbar documentation](https://quilljs.com/docs/modules/toolbar).
+In addition to this you can also configure `undo`, `redo` and `html-edit`.   
 
 The WYSIWYG editable allows us to specify the toolbar.
 If you have to limit styling options (for example only basic styles like `<b>` tag and lists would be allowed), just use `toolbar` option.
@@ -51,7 +52,9 @@ If you have to limit styling options (for example only basic styles like `<b>` t
             modules: {
                 toolbar: {
                     container: [
-                        [{ header: [1, 2, 3, 4, 5, 6, false] }]
+                        ['undo', 'redo'],
+                        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                        ['html-edit']
                     ]
                 } 
             }
