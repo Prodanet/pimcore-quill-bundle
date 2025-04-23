@@ -30,7 +30,12 @@ Thumbs.db
 /vendor
 
 /node_modules
-package-lock.json
+
+# Studio related files
+assets/studio/node_modules
+assets/studio/dist/*
+!assets/studio/dist/.gitkeep
+pimcore-studio-ui-bundle-0.0.1.tgz
 
 # code style fixer
 .php_cs
