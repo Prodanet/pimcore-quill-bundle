@@ -27,3 +27,5 @@ class QuillCounter {
       this.container.innerText = length + ' ' + label;
     }
   }
+
+  export default QuillCounter;
