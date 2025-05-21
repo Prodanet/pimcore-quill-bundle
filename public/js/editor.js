@@ -21,8 +21,8 @@ class QuillCounter {
 
     calculate() {
       let text = this.quill.getText();
+      text = text.trim();
       if (this.options.unit === 'word') {
-        text = text.trim();
         // Splitting empty text returns a non-empty array
         return text.length > 0 ? text.split(/\s+/).length : 0;
       } else {
@@ -32,7 +32,7 @@ class QuillCounter {
 
     update() {
       var length = this.calculate();
-      var label = this.options.unit;
+      var label = this.options.unit ?? 'character';
       if (length !== 1) {
         label += 's';
       }
@@ -80,8 +80,6 @@ pimcore.bundle.quill.editor = Class.create({
             'modules/table-better': QuillTableBetter,
         }, true);
 
-        Quill.register('modules/counter', QuillCounter);
-
         const pimcoreIdAttributor = new Parchment.Attributor('pimcore_id', 'pimcore_id', {
             scope: Parchment.Scope.INLINE
         });
@@ -118,6 +116,7 @@ pimcore.bundle.quill.editor = Class.create({
     createWysiwyg: function (e) {
         const textareaId = e.detail.textarea.id ?? e.detail.textarea;
         document.getElementById(textareaId).removeAttribute('contenteditable');
+        const counterContainerId = '#' + textareaId + '-counter';
 
         let subSpace = '';
         if (e.detail.context === 'document') {
@@ -131,10 +130,25 @@ pimcore.bundle.quill.editor = Class.create({
             defaultConfig = pimcore[e.detail.context][subSpace].wysiwyg ? pimcore[e.detail.context][subSpace].wysiwyg.defaultEditorConfig : {};
         }
 
-        const finalConfig = Object.assign({
+        const finalConfig = Object.assign({}, {
             theme: 'snow',
-            modules: { }
+            modules: { 
+                counter: {
+                    enabled: false
+                }
+            }
         }, defaultConfig, this.config);
+
+        //Workaround: https://github.com/attoae/quill-table-better/issues/12#issuecomment-2347920271
+        const textareaElement = document.getElementById(textareaId);
+        if (finalConfig.modules && finalConfig.modules.counter && finalConfig.modules.counter.enabled) {
+            Quill.register('modules/counter', QuillCounter);
+            const textAreaParent = textareaElement.parentNode;
+            const counterContainer = document.createElement('div');
+            counterContainer.setAttribute('id', textareaId + '-counter');
+            textAreaParent.appendChild(counterContainer);
+            finalConfig.modules.counter.container = counterContainerId;
+        }
 
         document.dispatchEvent(new CustomEvent(pimcore.events.createWysiwygConfig, {
             detail: {
@@ -145,8 +159,6 @@ pimcore.bundle.quill.editor = Class.create({
 
         this.setDefaultConfig(finalConfig);
 
-        //Workaround: https://github.com/attoae/quill-table-better/issues/12#issuecomment-2347920271
-        const textareaElement = document.getElementById(textareaId);
         const html = textareaElement.innerHTML;
         textareaElement.innerHTML = '';
 
