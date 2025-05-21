@@ -51,6 +51,8 @@ pimcore.bundle.quill.editor = Class.create({
             'modules/table-better': QuillTableBetter,
         }, true);
 
+        Quill.register('modules/counter', QuillCounter);
+
         const pimcoreIdAttributor = new Parchment.Attributor('pimcore_id', 'pimcore_id', {
             scope: Parchment.Scope.INLINE
         });
