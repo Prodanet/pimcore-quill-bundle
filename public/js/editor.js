@@ -136,7 +136,8 @@ pimcore.bundle.quill.editor = Class.create({
                 counter: {
                     enabled: false
                 }
-            }
+            },
+            isMultiline: true,
         }, defaultConfig, this.config);
 
         //Workaround: https://github.com/attoae/quill-table-better/issues/12#issuecomment-2347920271
@@ -316,6 +317,21 @@ pimcore.bundle.quill.editor = Class.create({
             };
         }
 
+        if (config.hasOwnProperty('isMultiline') && !config.isMultiline) {
+            modules.keyboard.bindings.shift_enter = {
+                key: 13,
+                shiftKey: true,
+                handler: (range, ctx) => {
+                    console.log(range, ctx); // if you want to see the output of the binding
+                    this.editor.insertText(range.index, '\n');
+                  }
+            };
+            modules.keyboard.bindings.enter = {
+                key: 13,
+                shiftKey: true,
+                handler: () => {}
+            };
+        }
         if(!modules.hasOwnProperty('toolbar')) {
             modules.toolbar = {
                 container: [
