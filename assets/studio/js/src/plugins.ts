@@ -1,4 +1,4 @@
-import { IAbstractPlugin } from '@pimcore/studio-ui-bundle'
+import { type IAbstractPlugin } from '@pimcore/studio-ui-bundle'
 import { QuillEditorModule } from './modules/quill-editor'
 
 if (module.hot !== undefined) {
