@@ -28,7 +28,7 @@ if (interface_exists(WebpackEntryPointProviderInterface::class)) {
 
         public function getEntryPoints(): array
         {
-            return ['main'];
+            return ['exposeRemote'];
         }
 
         public function getOptionalEntryPoints(): array
