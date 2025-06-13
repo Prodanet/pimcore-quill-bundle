@@ -33,10 +33,19 @@ class QuillCounter {
     update() {
       var length = this.calculate();
       var label = this.options.unit ?? 'character';
-      if (length !== 1) {
+      if (length > 1) {
         label += 's';
       }
-      this.container.innerText = length + ' ' + label;
+        var message = length;
+        if (this.options.maxChars > 0) {
+            message = length + ' / ' + this.options.maxChars;
+            if (length > this.options.maxChars) {
+                this.container.style.color = 'red';
+            }else {
+                this.container.style.color = ''
+            }
+        } 
+      this.container.innerText = message + ' ' + label;
     }
   }
 
@@ -149,6 +158,7 @@ pimcore.bundle.quill.editor = Class.create({
             counterContainer.setAttribute('id', textareaId + '-counter');
             textAreaParent.appendChild(counterContainer);
             finalConfig.modules.counter.container = counterContainerId;
+            finalConfig.modules.counter.maxChars = this.maxChars;
         }
 
         document.dispatchEvent(new CustomEvent(pimcore.events.createWysiwygConfig, {
