@@ -65,6 +65,18 @@ If you have to limit styling options (for example only basic styles like `<b>` t
 
 Now the user can use only the limited toolbar.
 
+### Single line WYSIWYG
+
+In order to disallow the capacity of the user to add more than a line in a field and some other toolbar options, you can set up the field as single line mode, just adding in the Editor configuration section of the key or field the following json configuration.
+
+```twig
+{
+    "isMultiline": false
+}
+```
+
+Now the user can use only the limited toolbar.
+
 ##### Global Configuration
 
 You can add a Global Configuration for all WYSIWYG Editors for all documents by setting `pimcore.document.editables.wysiwyg.defaultEditorConfig`.
