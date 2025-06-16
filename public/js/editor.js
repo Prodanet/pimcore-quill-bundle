@@ -178,8 +178,6 @@ pimcore.bundle.quill.editor = Class.create({
             const enterHander = () => {
                 return false;
             };
-            // When the editor is not multiline, clean up all bindings for Enter key
-            // to prevent new lines from being created.
             if (this.activeEditor.keyboard.hasOwnProperty('bindings')) {
                 if (this.activeEditor.keyboard.bindings.hasOwnProperty('Enter')) {
                     this.activeEditor.keyboard.bindings.Enter = [];
@@ -209,6 +207,11 @@ pimcore.bundle.quill.editor = Class.create({
 
         this.activeEditor.container.firstChild.onfocus = () => {
             this.activeEditor = this.quills.get(textareaId);
+            this.showOnlyActiveToolbar();
+        };
+
+        this.activeEditor.container.firstChild.onblur = () => {
+            this.activeEditor = null;
             this.showOnlyActiveToolbar();
         };
 
@@ -412,6 +415,11 @@ pimcore.bundle.quill.editor = Class.create({
     setHiddenForToolbar: function(editor, hidden) {
         const toolbar = editor.getModule("toolbar").container;
         toolbar.hidden = hidden;
+        if (!hidden) {
+            toolbar.classList.add('ql-toolbar-active');
+        } else {
+            toolbar.classList.remove('ql-toolbar-active');
+        }
     },
 
     createHtmlEditModal: function() {
