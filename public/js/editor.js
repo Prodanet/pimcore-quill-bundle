@@ -174,6 +174,20 @@ pimcore.bundle.quill.editor = Class.create({
         textareaElement.innerHTML = '';
 
         this.activeEditor = new Quill(`#${textareaId}`, finalConfig);
+        if (finalConfig.hasOwnProperty('isMultiline') && !finalConfig.isMultiline) {
+            const enterHander = () => {
+                return false;
+            };
+            // When the editor is not multiline, clean up all bindings for Enter key
+            // to prevent new lines from being created.
+            if (this.activeEditor.keyboard.hasOwnProperty('bindings')) {
+                if (this.activeEditor.keyboard.bindings.hasOwnProperty('Enter')) {
+                    this.activeEditor.keyboard.bindings.Enter = [];
+                }
+            }
+            this.activeEditor.keyboard.addBinding({ key: 'Enter' }, enterHander);
+            this.activeEditor.keyboard.addBinding({ key: 'Enter', shortKey: true }, enterHander);
+        }
         this.quills.set(textareaId, this.activeEditor);
 
         this.setEditorContent(html);
@@ -328,19 +342,6 @@ pimcore.bundle.quill.editor = Class.create({
         }
 
         if (config.hasOwnProperty('isMultiline') && !config.isMultiline) {
-            modules.keyboard.bindings.shift_enter = {
-                key: 13,
-                shiftKey: true,
-                handler: (range, ctx) => {
-                    console.log(range, ctx); // if you want to see the output of the binding
-                    this.editor.insertText(range.index, '\n');
-                  }
-            };
-            modules.keyboard.bindings.enter = {
-                key: 13,
-                shiftKey: true,
-                handler: () => {}
-            };
             modules.toolbar = {
                 container: [
                     ['undo', 'redo'],
