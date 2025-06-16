@@ -341,19 +341,21 @@ pimcore.bundle.quill.editor = Class.create({
                 shiftKey: true,
                 handler: () => {}
             };
+            modules.toolbar = {
+                container: [
+                    ['undo', 'redo'],
+                    ['bold', 'underline'],
+                    ['clean']
+                ]
+            };
         }
         if(!modules.hasOwnProperty('toolbar')) {
             modules.toolbar = {
                 container: [
                     ['undo', 'redo'],
-                    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                    ['bold', 'italic'],
-                    [{ align: [] }],
-                    [{ list: 'ordered' }, { list: 'bullet' }],
-                    [{ indent: '-1' }, { indent: '+1' }],
-                    ['blockquote'],
-                    ['link', 'table-better'],
-                    [ 'clean', 'html-edit'],
+                    ['bold', 'underline'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['clean']
                 ]
             };
         }
