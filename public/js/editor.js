@@ -412,13 +412,15 @@ pimcore.bundle.quill.editor = Class.create({
         });
     },
 
-    setHiddenForToolbar: function(editor, hidden) {
-        const toolbar = editor.getModule("toolbar").container;
+    setHiddenForToolbar: function(quillInstance, hidden) {
+        const toolbar = quillInstance.getModule("toolbar").container;
+        const editor = quillInstance.container;
+    
         toolbar.hidden = hidden;
         if (!hidden) {
-            toolbar.classList.add('ql-toolbar-active');
+            editor.classList.add('ql-editor-active');
         } else {
-            toolbar.classList.remove('ql-toolbar-active');
+            editor.classList.remove('ql-editor-active');
         }
     },
 
