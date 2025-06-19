@@ -46,7 +46,6 @@
 }
 
 .ql-container.ql-editor-active {
-    max-height: calc(3 * 15px) !important;
     min-height: auto;
 }
 

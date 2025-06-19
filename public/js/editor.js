@@ -507,8 +507,7 @@ pimcore.bundle.quill.editor = Class.create({
     setEditorContent: function (html) {
         this.activeEditor.deleteText(0, this.activeEditor.getLength());
         const delta = this.activeEditor.clipboard.convert({
-            html,
-            text: '\n'
+            html
         });
         this.activeEditor.updateContents(delta, Quill.sources.USER);
         this.activeEditor.history.clear();
