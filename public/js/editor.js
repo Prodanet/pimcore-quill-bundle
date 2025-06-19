@@ -146,7 +146,7 @@ pimcore.bundle.quill.editor = Class.create({
                     enabled: false
                 }
             },
-            isMultiline: true,
+            Singleline: false,
         }, defaultConfig, this.config);
 
         //Workaround: https://github.com/attoae/quill-table-better/issues/12#issuecomment-2347920271
@@ -174,7 +174,7 @@ pimcore.bundle.quill.editor = Class.create({
         textareaElement.innerHTML = '';
 
         this.activeEditor = new Quill(`#${textareaId}`, finalConfig);
-        if (finalConfig.hasOwnProperty('isMultiline') && !finalConfig.isMultiline) {
+        if (finalConfig.hasOwnProperty('Singleline') && finalConfig.Singleline) {
             const enterHander = () => {
                 return false;
             };
@@ -344,7 +344,7 @@ pimcore.bundle.quill.editor = Class.create({
             };
         }
 
-        if (config.hasOwnProperty('isMultiline') && !config.isMultiline) {
+        if (config.hasOwnProperty('Singleline') && config.Singleline) {
             modules.toolbar = {
                 container: [
                     ['undo', 'redo'],

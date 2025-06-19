@@ -71,7 +71,7 @@ In order to disallow the capacity of the user to add more than a line in a field
 
 ```twig
 {
-    "isMultiline": false
+    "Singleline": true
 }
 ```
 
