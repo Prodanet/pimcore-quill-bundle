@@ -156,7 +156,9 @@ pimcore.bundle.quill.editor = Class.create({
             const textAreaParent = textareaElement.parentNode;
             const counterContainer = document.createElement('div');
             counterContainer.setAttribute('id', textareaId + '-counter');
+            counterContainer.className = 'x-panel-footer quill-counter';
             textAreaParent.appendChild(counterContainer);
+            textareaElement.classList.add('ql-container-pdm');
             finalConfig.modules.counter.container = counterContainerId;
             finalConfig.modules.counter.maxChars = this.maxChars;
         }
@@ -207,12 +209,12 @@ pimcore.bundle.quill.editor = Class.create({
 
         this.activeEditor.container.firstChild.onfocus = () => {
             this.activeEditor = this.quills.get(textareaId);
-            this.showOnlyActiveToolbar();
+            // this.showOnlyActiveToolbar();
         };
 
         this.activeEditor.container.firstChild.onblur = () => {
             this.activeEditor = null;
-            this.showOnlyActiveToolbar();
+            // this.showOnlyActiveToolbar();
         };
 
         const maxChars = this.maxChars;
@@ -389,7 +391,7 @@ pimcore.bundle.quill.editor = Class.create({
             this.openHtmlEdit.bind(this)
         );
 
-        this.setHiddenForToolbar(this.activeEditor, true);
+        // this.setHiddenForToolbar(this.activeEditor, true);
     },
 
     createToolbarBtn: function (className, onClick, innerHTML = '') {
@@ -406,23 +408,23 @@ pimcore.bundle.quill.editor = Class.create({
         }
     },
 
-    showOnlyActiveToolbar: function () {
-        this.quills.forEach ((editor) => {
-            this.setHiddenForToolbar(editor, editor !== this.activeEditor);
-        });
-    },
+    // showOnlyActiveToolbar: function () {
+    //     // this.quills.forEach ((editor) => {
+    //     //     this.setHiddenForToolbar(editor, editor !== this.activeEditor);
+    //     // });
+    // },
 
-    setHiddenForToolbar: function(quillInstance, hidden) {
-        const toolbar = quillInstance.getModule("toolbar").container;
-        const editor = quillInstance.container;
+    // setHiddenForToolbar: function(quillInstance, hidden) {
+    //     const toolbar = quillInstance.getModule("toolbar").container;
+    //     const editor = quillInstance.container;
     
-        toolbar.hidden = hidden;
-        if (!hidden) {
-            editor.classList.add('ql-editor-active');
-        } else {
-            editor.classList.remove('ql-editor-active');
-        }
-    },
+    //     toolbar.hidden = hidden;
+    //     if (!hidden) {
+    //         editor.classList.add('ql-editor-active');
+    //     } else {
+    //         editor.classList.remove('ql-editor-active');
+    //     }
+    // },
 
     createHtmlEditModal: function() {
         const rootNode = document.body;
@@ -507,7 +509,8 @@ pimcore.bundle.quill.editor = Class.create({
     setEditorContent: function (html) {
         this.activeEditor.deleteText(0, this.activeEditor.getLength());
         const delta = this.activeEditor.clipboard.convert({
-            html
+            html,
+            text: '\n'
         });
         this.activeEditor.updateContents(delta, Quill.sources.USER);
         this.activeEditor.history.clear();

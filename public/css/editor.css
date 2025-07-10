@@ -104,3 +104,14 @@
 .actions__save-btn {
     background-color: #00e765;
 }
+
+.quill-counter {
+    height: 20px;
+    padding: 2px;
+    line-height: 18px;
+}
+
+.ql-container-pdm {
+    height: calc(100% - 62px) !important;
+}
+
