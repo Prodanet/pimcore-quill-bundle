@@ -354,7 +354,17 @@ pimcore.bundle.quill.editor = Class.create({
                     ['clean']
                 ]
             };
+        } else if(!config.hasOwnProperty('Singleline') || config.hasOwnProperty('Singleline') && !config.Singleline) {
+            modules.toolbar = {
+                container: [
+                    ['undo', 'redo'],
+                    ['bold', 'underline'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['clean']
+                ]
+            };
         }
+
         if(!modules.hasOwnProperty('toolbar')) {
             modules.toolbar = {
                 container: [
