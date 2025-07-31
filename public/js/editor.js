@@ -209,12 +209,9 @@ pimcore.bundle.quill.editor = Class.create({
 
         this.activeEditor.container.firstChild.onfocus = () => {
             this.activeEditor = this.quills.get(textareaId);
-            // this.showOnlyActiveToolbar();
         };
 
         this.activeEditor.container.firstChild.onblur = () => {
-            this.activeEditor = null;
-            // this.showOnlyActiveToolbar();
         };
 
         const maxChars = this.maxChars;
@@ -401,7 +398,6 @@ pimcore.bundle.quill.editor = Class.create({
             this.openHtmlEdit.bind(this)
         );
 
-        // this.setHiddenForToolbar(this.activeEditor, true);
     },
 
     createToolbarBtn: function (className, onClick, innerHTML = '') {
@@ -417,24 +413,6 @@ pimcore.bundle.quill.editor = Class.create({
             };
         }
     },
-
-    // showOnlyActiveToolbar: function () {
-    //     // this.quills.forEach ((editor) => {
-    //     //     this.setHiddenForToolbar(editor, editor !== this.activeEditor);
-    //     // });
-    // },
-
-    // setHiddenForToolbar: function(quillInstance, hidden) {
-    //     const toolbar = quillInstance.getModule("toolbar").container;
-    //     const editor = quillInstance.container;
-    
-    //     toolbar.hidden = hidden;
-    //     if (!hidden) {
-    //         editor.classList.add('ql-editor-active');
-    //     } else {
-    //         editor.classList.remove('ql-editor-active');
-    //     }
-    // },
 
     createHtmlEditModal: function() {
         const rootNode = document.body;
