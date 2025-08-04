@@ -111,7 +111,19 @@
     line-height: 18px;
 }
 
-.ql-container-pdm {
+.ql-container-pdm:not(.singleline) {
     height: calc(100% - 62px) !important;
 }
 
+.singleline {
+    min-height: 50px !important;
+    height: 50px !important;
+    overflow: hidden !important;
+    padding: 4px 15px !important;
+
+    .ql-editor {
+        padding: 10px 5px;
+        margin: 0px;
+    }
+}
+    

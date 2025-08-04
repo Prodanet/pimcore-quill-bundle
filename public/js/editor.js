@@ -161,6 +161,9 @@ pimcore.bundle.quill.editor = Class.create({
             textareaElement.classList.add('ql-container-pdm');
             finalConfig.modules.counter.container = counterContainerId;
             finalConfig.modules.counter.maxChars = this.maxChars;
+            if (finalConfig.hasOwnProperty("Singleline") && finalConfig.Singleline) {
+                textareaElement.classList.add("singleline");
+            }
         }
 
         document.dispatchEvent(new CustomEvent(pimcore.events.createWysiwygConfig, {
@@ -498,7 +501,7 @@ pimcore.bundle.quill.editor = Class.create({
         this.activeEditor.deleteText(0, this.activeEditor.getLength());
         const delta = this.activeEditor.clipboard.convert({
             html,
-            text: '\n'
+            text: "",
         });
         this.activeEditor.updateContents(delta, Quill.sources.USER);
         this.activeEditor.history.clear();
